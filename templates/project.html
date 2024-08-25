@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #507984;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header img {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        main h1 {
+            text-align: center;
+            color: #507984;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        form input[type="text"],
+        form input[type="number"],
+        form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #507984;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2b4851;
+        }
+
+        #progressBar {
+            width: 100%;
+            height: 10px;
+            background-color: #ccc;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <img src="/static/logo.png" alt="Loan Company Logo">
+            <h1>EASY LOAN</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/records">Records</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <form id="loanForm" action="{{ url_for('submit') }}" method="post">
+                <h1>Enter the Details</h1>
+
+                <div>
+                    <label for="name">What is your name?</label>
+                    <input type="text" id="name" name="name" required>
+                    <a href="/" class="btn">Back</a>
+                    <button type="button" class="btn" onclick="nextStep(2)">Next</button>
+                </div>
+
+                <div>
+                    <label for="no_of_dependents">Number of dependents:</label>
+                    <input type="number" id="no_of_dependents" name="no_of_dependents" required>
+                    <button type="button" class="btn" onclick="prevStep(1)">Previous</button>
+                    <button type="button" class="btn" onclick="nextStep(3)">Next</button>
+                </div>
+
+                <div>
+                    <label for="income_annum">Annual Income:</label>
+                    <input type="number" id="income_annum" name="income_annum" required>
+                    <button type="button" class="btn" onclick="prevStep(2)">Previous</button>
+                    <button type="button" class="btn" onclick="nextStep(4)">Next</button>
+                </div>
+
+                <div>
+                    <label for="loanAmount">How much loan do you need?</label>
+                    <input type="number" id="loanAmount" name="loanAmount" required>
+                    <button type="button" class="btn" onclick="prevStep(3)">Previous</button>
+                    <button type="button" class="btn" onclick="nextStep(5)">Next</button>
+                </div>
+
+                <div>
+                    <label for="loan_term">Loan Term (years):</label>
+                    <input type="number" id="loan_term" name="loan_term" required>
+                    <button type="button" class="btn" onclick="prevStep(4)">Previous</button>
+                    <button type="button" class="btn" onclick="nextStep(6)">Next</button>
+                </div>
+
+                <div>
+                    <label for="cibil_score">CIBIL Score:</label>
+                    <input type="number" id="cibil_score" name="cibil_score" required>
+                    <button type="button" class="btn" onclick="prevStep(5)">Previous</button>
+                    <button type="button" class="btn" onclick="nextStep(7)">Next</button>
+                </div>
+
+                <div>
+                    <label for="residential_assets_value">Value of Residential Assets:</label>
+                    <input type="number" id="residential_assets_value" name="residential_assets_value" required>
+                    <button type="button" class="btn" onclick="prevStep(6)">Previous</button>
+                    <button type="button" class="btn" onclick="nextStep(8)">Next</button>
+                </div>
+
+                <div>
+                    <label for="commercial_assets_value">Value of Commercial Assets:</label>
+                    <input type="number" id="commercial_assets_value" name="commercial_assets_value" required>
+                    <button type="button" class="btn" onclick="prevStep(7)">Previous</button>
+                    <button type="button" class="btn" onclick="nextStep(9)">Next</button>
+                </div>
+
+                <div>
+                    <label for="luxury_assets_value">Value of Luxury Assets:</label>
+                    <input type="number" id="luxury_assets_value" name="luxury_assets_value" required>
+                    <button type="button" class="btn" onclick="prevStep(8)">Previous</button>
+                    <button type="button" class="btn" onclick="nextStep(10)">Next</button>
+                </div>
+
+                <div>
+                    <label for="bank_asset_value">Value of Bank Assets:</label>
+                    <input type="number" id="bank_asset_value" name="bank_asset_value" required>
+                    <button type="button" class="btn" onclick="prevStep(9)">Previous</button>
+                    <button type="button" class="btn" onclick="nextStep(11)">Next</button>
+                </div>
+
+                <div>
+                    <label for="education">Education:</label>
+                    <select id="education" name="education">
+                        <option value="1">Not Graduate</option>
+                        <option value="0">Graduate</option>
+                    </select>
+                    <button type="button" class="btn" onclick="prevStep(10)">Previous</button>
+                    <button type="button" class="btn" onclick="nextStep(12)">Next</button>
+                </div>
+
+                <div>
+                    <label for="self_employed">Are you self-employed?</label>
+                    <select id="self_employed" name="self_employed">
+                        <option value="1">No</option>
+                        <option value="0">Yes</option>
+                    </select>
+                    <button type="button" class="btn" onclick="prevStep(11)">Previous</button>
+                    <button type="submit" class="btn">Submit</button>
+                </div>
+            </form>
+
+            <div id="progressBar"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Loan Company. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
